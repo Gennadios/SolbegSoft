@@ -1,0 +1,57 @@
+﻿@{ 
+    Layout = null;
+}
+
+@model Calculator 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="/js/site.js"></script>
+        <meta name="viewport" content="width=device-width" />
+        <title>MvcCalculator</title>
+        <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/css/site.css" />
+    </head>
+    <body>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <table align="center">
+                <thead>
+                    <tr class="border-dark">
+                        <td colspan="4" class="h2" align="center">Calculator</td>
+                    </tr>
+                </thead>
+                <tr>
+                    <td colspan="3"><input type="text" asp-for="Result" id="result" value="@(Model?.DisplayResult())" maxlength="20"
+                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="text-align: right;"/></td>
+                    <td><button type="submit" class="btn btn-block btn-outline-secondary align-baseline" id="btn-clear" name="operation" value="c" onclick="Clear()">C</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-one" value="1" onclick="AddValue(this.value)">1</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-two" value="2" onclick="AddValue(this.value)">2</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-three" value="3" onclick="AddValue(this.value)">3</button></td>
+                    <td><button type="submit" class="btn btn-block btn-outline-secondary align-baseline" id="btn-div" name="operation" value="/">/</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-four" value="4" onclick="AddValue(this.value)">4</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-five" value="5" onclick="AddValue(this.value)">5</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-six" value="6" onclick="AddValue(this.value)">6</button></td>
+                    <td><button type="submit" class="btn btn-block btn-outline-secondary align-baseline" id="btn-sub" name="operation" value="-">-</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-seven" value="7" onclick="AddValue(this.value)">7</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-eight" value="8" onclick="AddValue(this.value)">8</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-nine" value="9" onclick="AddValue(this.value)">9</button></td>
+                    <td><button type="submit" class="btn btn-block btn-outline-secondary align-baseline" id="btn-add" name="operation" value="+">+</button></td>
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-dot" value="," onclick="AddValue(this.value)">.</button></td>
+                    <td><button type="button" class="btn btn-block btn-outline-secondary align-baseline" id="btn-zero" value="0" onclick="AddValue(this.value)">0</button></td>
+                    <td><button type="submit" class="btn btn-block btn-outline-secondary align-baseline" id="btn-eql" name="operation" value="=">=</button></td>
+                    <td><button type="submit" class="btn btn-block btn-outline-secondary align-baseline" id="btn-mul" name="operation" value="*">*</button></td>
+                </tr>
+            </table>
+        }
+    </body>
+</html>
