@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WhoWantsToBeAMillionaire.Models;
+using WhoWantsToBeAMillionaire.Models.Repositories;
+using WhoWantsToBeAMillionaire.Models.Services;
 
 namespace WhoWantsToBeAMillionaire
 {
@@ -17,7 +19,10 @@ namespace WhoWantsToBeAMillionaire
         {
             services.AddControllersWithViews();
             services.AddDbContext<MillionaireDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings: WhoWantsToBeAMillionaireConnection"]));
+                options.UseSqlServer(Configuration.GetConnectionString("WhoWantsToBeAMillionaireConnection")));
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IGameService, GameService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

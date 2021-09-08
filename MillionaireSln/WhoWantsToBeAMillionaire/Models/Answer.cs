@@ -1,5 +1,8 @@
-﻿namespace WhoWantsToBeAMillionaire.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace WhoWantsToBeAMillionaire.Models
 {
+    [Keyless]
     public class Answer
     {
         public int QuestionId { get; set; }
