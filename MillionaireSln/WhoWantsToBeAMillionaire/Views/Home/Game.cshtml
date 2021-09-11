@@ -1,21 +1,20 @@
 ﻿@model GameService
 
 <div>
-    <h3>Game</h3>
-    <p>Selected number of questions:</p>
-</div>
-<div>
-    <h3>Questions</h3>
-    <ul style="font-weight: 700;">
-        @foreach (var question in Model.GetGameQuestions())
+    <h1 class="text-center">@Model.GameQuestions.Keys.FirstOrDefault().Content</h1>
+    <form asp-controller="Home" asp-action="Game" method="post">
+        @if (Model.FiftyFiftyUsed == false)
         {
-            <li>@question.Key.Content</li>
-            <ul style="font-weight: 400">
-                @foreach (var answer in question.Value)
-                {
-                    <li>@answer.Content</li>
-                }
-            </ul>
+            <button type="submit" name="fiftyFiftyUsed" value="true">50:50</button>
         }
-    </ul>
+    </form>
+    <form asp-controller="Home" asp-action="AnswerResult" method="post">
+        @for (int i = 0, marker = 'A'; i < 4; i++, marker++)
+        {
+            <button type="submit" name="answerIndex" value="@i">
+                @((char)marker): @Model.CurrentAnswers[i].Content
+            </button>
+        }
+    </form>
+    <h3>Current Prize: @Model.CurrentPrize.ToString("C")</h3>
 </div>

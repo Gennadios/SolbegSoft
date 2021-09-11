@@ -18,11 +18,13 @@ namespace WhoWantsToBeAMillionaire
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<MillionaireDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("WhoWantsToBeAMillionaireConnection")));
-            services.AddScoped<IQuestionRepository, QuestionRepository>();
-            services.AddScoped<IAnswerRepository, AnswerRepository>();
-            services.AddScoped<IGameService, GameService>();
+            services.AddDbContext<MillionaireDbContext>(options => 
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("WhoWantsToBeAMillionaireConnection"));
+            }, ServiceLifetime.Singleton);
+            services.AddSingleton<IQuestionRepository, QuestionRepository>();
+            services.AddSingleton<IAnswerRepository, AnswerRepository>();
+            services.AddSingleton<GameService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

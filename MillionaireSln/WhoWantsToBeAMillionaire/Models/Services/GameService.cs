@@ -5,10 +5,38 @@ using WhoWantsToBeAMillionaire.Models.Repositories;
 
 namespace WhoWantsToBeAMillionaire.Models.Services
 {
-    public class GameService : IGameService
+    public class GameService
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IAnswerRepository _answerRepository;
+        private Dictionary<Question, Answer[]> _gameQuestions;
+
+        public int NumberOfQuestions { get; set; }
+        public int CurrentQuestionNumber { get; set; } = 1;
+        public Dictionary<Question, Answer[]> GameQuestions
+        {
+            get
+            {
+                if (_gameQuestions == null)
+                    _gameQuestions = GetGameQuestions();
+
+                return _gameQuestions;
+            }
+            private set => _gameQuestions = value;
+        }
+        public Question CurrentQuestion { get => GameQuestions.Keys.FirstOrDefault(); }
+        public Answer[] CurrentAnswers { get => GameQuestions[CurrentQuestion]; }
+        public int MaxPrize { get; set; } = 1_000_000;
+        public int CurrentPrize { get; set; }
+        public int PrizeStep 
+        { 
+            get
+            {
+                return MaxPrize / NumberOfQuestions;
+            } 
+        }
+        public bool FiftyFiftyUsed { get; set; }
+        public bool GameLost { get; set; }
 
         public GameService(IQuestionRepository questionRepository, IAnswerRepository answerRepository)
         {
@@ -16,31 +44,24 @@ namespace WhoWantsToBeAMillionaire.Models.Services
             _answerRepository = answerRepository;
         }
 
-        public static int QuestionNumber { get; set; } = 1;
+        // this method will be called if the player's answer is correct to proceed to the next question
+        public void RemoveFirstQuestion() => GameQuestions.Remove(GameQuestions.Keys.FirstOrDefault());
 
-        public int NumberOfQuestions { get; set; }
-
-        public Dictionary<Question, Answer[]> GetGameQuestions()
+        public void ResetGame()
         {
-            var gameQuestions = new Dictionary<Question, Answer[]>();
-            var questions = GetQuestions(NumberOfQuestions);
-
-            for (int i = 0; i < questions.Length; i++)
-            {
-                //var allAnswers = ... .ToArray()
-                var answers = _answerRepository.Answers.Where(a => a.QuestionId == questions[i].Id).ToArray();
-                gameQuestions.Add(questions[i], answers);
-            }
-
-            return gameQuestions;
+            CurrentQuestionNumber = 1;
+            GameQuestions = null;
+            CurrentPrize = 0;
+            GameLost = false;
         }
 
-        private Question[] GetQuestions(int numberOfQuestions)
+        // getting random Questions
+        private Question[] GetQuestions()
         {
-            Question[] questions = new Question[numberOfQuestions];
-            Random rnd = new Random();
+            var questions = new Question[NumberOfQuestions];
+            Random rnd = new();
 
-            for (int i = 0; i < numberOfQuestions; i++)
+            for (int i = 0; i < NumberOfQuestions; i++)
             {
                 int randomId = rnd.Next(1, _questionRepository.Questions.Count() + 1);
 
@@ -52,5 +73,20 @@ namespace WhoWantsToBeAMillionaire.Models.Services
 
             return questions;
         }
+
+        // getting answers for questions that were randomly selected by GetQuestions method
+        private Dictionary<Question, Answer[]> GetGameQuestions()
+        {
+            var gameQuestions = new Dictionary<Question, Answer[]>();
+            var questions = GetQuestions();
+
+            for (int i = 0; i < questions.Length; i++)
+            {
+                var answers = _answerRepository.Answers.Where(a => a.QuestionId == questions[i].Id).ToArray();
+                gameQuestions[questions[i]] = answers;
+            }
+
+            return gameQuestions;
+        } 
     }
 }

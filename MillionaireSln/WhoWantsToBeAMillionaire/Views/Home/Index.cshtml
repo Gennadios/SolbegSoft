@@ -1,13 +1,11 @@
-﻿@model GameService
-
-<h3>Welcome to the game</h3>
-@Html.BeginForm("Index", "Home", FormMethod.Post)
-{ 
-    <label>Select number of questions:</label>
-    <select asp-for="@Model.NumberOfQuestions">
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-    </select>
-    <button type="submit">Submit</button>
-}
+﻿<div class="form-control">
+    <form asp-controller="Home" asp-action="Game" method="post">
+        <label>How many questions would you like to answer?</label>
+        <select name="numberOfQuestions">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+        </select>
+        <button type="submit">Play</button>
+    </form>
+</div>
