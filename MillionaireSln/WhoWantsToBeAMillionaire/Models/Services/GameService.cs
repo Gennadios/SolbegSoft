@@ -44,6 +44,22 @@ namespace WhoWantsToBeAMillionaire.Models.Services
             _answerRepository = answerRepository;
         }
 
+        // TODO optimize
+        public void ManageFiftyFifty()
+        {
+            FiftyFiftyUsed = true;
+
+            var rnd = new Random();
+            var wrongAnswer1 = CurrentAnswers.Where(a => a.IsCorrect == false).ToArray()[rnd.Next(3)];
+            var wrongAnswer2 = CurrentAnswers.Where(a => a.IsCorrect == false && a != wrongAnswer1).ToArray()[rnd.Next(2)];
+
+            int wrongIndex1 = Array.IndexOf(CurrentAnswers, wrongAnswer1);
+            int wrongIndex2 = Array.IndexOf(CurrentAnswers, wrongAnswer2);
+
+            CurrentAnswers[wrongIndex1] = null;
+            CurrentAnswers[wrongIndex2] = null;
+        }
+
         // this method will be called if the player's answer is correct to proceed to the next question
         public void RemoveFirstQuestion() => GameQuestions.Remove(GameQuestions.Keys.FirstOrDefault());
 

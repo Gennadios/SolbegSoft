@@ -18,8 +18,10 @@ namespace WhoWantsToBeAMillionaire.Controllers
         }
 
         [HttpPost]
-        public IActionResult Game(int numberOfQuestions)
+        public IActionResult Game(int numberOfQuestions, string fiftyFiftyUsed)
         {
+            if (fiftyFiftyUsed == "true")
+                _gameService.ManageFiftyFifty();
             if(_gameService.NumberOfQuestions == 0)
                 _gameService.NumberOfQuestions = numberOfQuestions;
 
