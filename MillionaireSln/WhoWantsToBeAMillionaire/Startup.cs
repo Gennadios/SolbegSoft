@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WhoWantsToBeAMillionaire.Models;
-using WhoWantsToBeAMillionaire.Models.Repositories;
 using WhoWantsToBeAMillionaire.Models.Services;
+using WhoWantsToBeAMillionaire.Models.Repositories;
+using WhoWantsToBeAMillionaire.Models.Repositories.SampleRepositories;
 
 namespace WhoWantsToBeAMillionaire
 {
@@ -22,8 +23,8 @@ namespace WhoWantsToBeAMillionaire
             {
                 options.UseSqlServer(Configuration.GetConnectionString("WhoWantsToBeAMillionaireConnection"));
             }, ServiceLifetime.Singleton);
-            services.AddSingleton<IQuestionRepository, QuestionRepository>();
-            services.AddSingleton<IAnswerRepository, AnswerRepository>();
+            services.AddSingleton<IQuestionRepository, SampleQuestionRepository>();
+            services.AddSingleton<IAnswerRepository, SampleAnswerRepository>();
             services.AddSingleton<GameService>();
         }
 

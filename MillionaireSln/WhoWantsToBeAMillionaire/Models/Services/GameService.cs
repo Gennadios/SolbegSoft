@@ -24,7 +24,7 @@ namespace WhoWantsToBeAMillionaire.Models.Services
             }
             private set => _gameQuestions = value;
         }
-        public Question CurrentQuestion { get => GameQuestions.Keys.FirstOrDefault(); }
+        public Question CurrentQuestion { get => GameQuestions?.Keys.FirstOrDefault(); }
         public Answer[] CurrentAnswers { get => GameQuestions[CurrentQuestion]; }
         public int MaxPrize { get; set; } = 1_000_000;
         public int CurrentPrize { get; set; }
@@ -65,9 +65,11 @@ namespace WhoWantsToBeAMillionaire.Models.Services
 
         public void ResetGame()
         {
+            NumberOfQuestions = 0;
             CurrentQuestionNumber = 1;
             GameQuestions = null;
             CurrentPrize = 0;
+            FiftyFiftyUsed = false;
             GameLost = false;
         }
 

@@ -1,11 +1,18 @@
-﻿<div class="form-control">
-    <form asp-controller="Home" asp-action="Game" method="post">
-        <label>How many questions would you like to answer?</label>
-        <select name="numberOfQuestions">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-        </select>
-        <button type="submit">Play</button>
-    </form>
-</div>
+﻿<body class="main-page">
+    <div class="container">
+        <audio autoplay="autoplay">
+            <source src="/sound/lets_play.mp3" type="audio/mpeg" />
+        </audio>
+        <div class="form-control">
+            <form asp-controller="Home" asp-action="Game" method="post" class="form-control_form">
+                <label>How many questions would you like to answer?</label>
+                <select name="numberOfQuestions">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+                <button class="btn btn_play btn_next" type="submit"><span>Play</span></button>
+            </form>
+        </div>
+    </div>
+</body>

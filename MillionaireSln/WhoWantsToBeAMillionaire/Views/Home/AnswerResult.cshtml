@@ -1,9 +1,18 @@
-﻿<div>
-    <h1>And it's ... correct! Would you like to continue or claim your prize?</h1>
-    <form asp-controller="Home" asp-action="Game">
-        <button>Continue</button>
-    </form>
-    <form asp-controller="Home" asp-action="GameOver" method="get">
-        <button>Claim Prize</button>
-    </form>
-</div>
+﻿<body class="main-page">
+    <div class="container">
+        <div class="answr-res">
+
+            <audio autoplay="autoplay">
+                <source src="~/sound/sound_right.mp3" type="audio/mpeg" />
+            </audio>
+
+            <h1>And it is ... correct! Would you like to continue or claim your prize?</h1>
+            <form asp-controller="Home" asp-action="Game">
+                <button class="btn btn_next"><span>Continue</span></button>
+            </form>
+            <form asp-controller="Home" asp-action="GameOver" method="get">
+                <button class="game_answer"><span>Claim Prize</span></button>
+            </form>
+        </div>
+    </div>
+</body>
