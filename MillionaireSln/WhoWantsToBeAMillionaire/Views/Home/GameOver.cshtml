@@ -1,0 +1,32 @@
+﻿@model GameService
+
+<body class="game-over">
+    <div class="container">
+        <div class="game-over-wrapper">
+            <div class="game-over-main">
+
+                <audio autoplay="autoplay">
+                    <source src="https://zvukipro.com/uploads/files/2019-03/1551975203_closing-titles-2008-v2.mp3">
+                    Тег audio не поддерживается вашим браузером.
+                </audio>
+
+                @if (Model.GameLost == false && !Model.GameQuestions.Any())
+                {
+                    <h1>Congratulations! <br /> You are a Millionaire!</h1>
+                    <h2>(before taxes)</h2>
+                }
+                else if (Model.GameLost == false && Model.GameQuestions.Any())
+                {
+                    <h1>Well played! You have won @Model.CurrentPrize.ToString("C")</h1>
+                }
+                else
+                {
+                    <h1>Unfortunately, it's a wrong answer. You have lost!</h1>
+                }
+            </div>
+        </div>
+        <form asp-controller="Home" asp-action="Index" method="get">
+            <button class="btn btn_play_again btn_next" type="submit"><span>Play again!</span></button>
+        </form>
+    </div>
+</body>
