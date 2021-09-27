@@ -1,0 +1,53 @@
+﻿@model RolesViewModel
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<body class="main-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li><a asp-action="Roles" asp-controller="Admin">Manage Roles</a></li>
+        <li><a asp-action="Users" asp-controller="Admin">Manage Users</a></li>
+        <li><a asp-action="Workplaces" asp-controller="Admin">Manage Workplaces</a></li>
+        <li><a asp-action="Devices" asp-controller="Admin">Manage Devices</a></li>
+        <li><a asp-action="Reservations" asp-controller="Admin">Manage Reservations</a></li>
+        <li class="logout"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+    </ul>
+    <h1 class="table-header">Roles</h1>
+    <div class="popup-form" id="addRoleForm">
+        <form class="form-container" asp-action="Roles" asp-controller="Admin" method="post">
+            <h2>New Role</h2>
+            <label asp-for="RoleName">Role Name</label>
+            <input type="text" asp-for="RoleName" placeholder="Enter role name" />
+            <span class="validation-message" asp-validation-for="RoleName"></span>
+            <button type="submit" class="confirm-btn">Add</button>
+            <button type="button" class="cancel-btn" onclick="closeForm('addRoleForm')">Cancel</button>
+        </form>
+    </div>
+    <main>
+        <form asp-action="Roles" asp-controller="Admin" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role ID</th>
+                        <th>Role Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model.Roles)
+                    {
+                        <tr>
+                            <td>@role.Id</td>
+                            <td>@role.Name</td>
+                            <td><button class="btn-danger" type="submit" name="roleId" value="@role.Id">Remove</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </main>
+    <button class="open-button" onclick="openForm('addRoleForm')">Add Role</button>
+</body>

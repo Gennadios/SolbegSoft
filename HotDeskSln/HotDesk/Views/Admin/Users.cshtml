@@ -1,0 +1,76 @@
+﻿@model UsersViewModel
+@{
+    ViewData["Title"] = "Users";
+}
+
+<body class="main-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li><a asp-action="Roles" asp-controller="Admin">Manage Roles</a></li>
+        <li><a asp-action="Users" asp-controller="Admin">Manage Users</a></li>
+        <li><a asp-action="Workplaces" asp-controller="Admin">Manage Workplaces</a></li>
+        <li><a asp-action="Devices" asp-controller="Admin">Manage Devices</a></li>
+        <li><a asp-action="Reservations" asp-controller="Admin">Manage Reservations</a></li>
+        <li class="logout"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+    </ul>
+    <h1 class="table-header">Users</h1>
+    <div class="popup-form" id="addUserForm">
+        <form class="form-container" asp-action="Users" asp-controller="Admin" method="post">
+            <h2>New User</h2>
+            <label asp-for="FirstName">First Name</label>
+            <input type="text" asp-for="FirstName" placeholder="Enter user first name" />
+
+            <label asp-for="LastName">Last Name</label>
+            <input type="text" asp-for="LastName" placeholder="Enter user last name" />
+
+            <label asp-for="Login">Login</label>
+            <input type="text" asp-for="Login" placeholder="Enter user login" />
+            <span class="validation-message" asp-validation-for="Login"></span>
+
+            <label asp-for="Password">Password</label>
+            <input type="text" asp-for="Password" placeholder="Enter user password" />
+            <span class="validation-message" asp-validation-for="Password"></span>
+
+            <label asp-for="RoleId">Role ID</label>
+            <input type="text" asp-for="RoleId" placeholder="Enter user's role ID'" />
+            <span class="validation-message" asp-validation-for="RoleId"></span>
+
+            <button type="submit" class="confirm-btn">Add</button>
+            <button type="button" class="cancel-btn" onclick="closeForm('addUserForm')">Cancel</button>
+        </form>
+    </div>
+    <main>
+        <form asp-action="Users" asp-controller="Admin" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User First Name</th>
+                        <th>User Last Name</th>
+                        <th>User Login</th>
+                        <th>User Password</th>
+                        <th>User Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Login</td>
+                            <td>@user.Password</td>
+                            <td>@user.Role.Name</td>
+                            <td><button class="btn-danger" type="submit" name="userId" value="@user.Id">Remove User</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </main>
+    <button class="open-button" onclick="openForm('addUserForm')">Add User</button>
+</body>

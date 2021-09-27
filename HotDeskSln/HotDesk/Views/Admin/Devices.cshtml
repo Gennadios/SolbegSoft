@@ -1,0 +1,53 @@
+﻿@model DevicesViewModel
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<body class="main-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li><a asp-action="Roles" asp-controller="Admin">Manage Roles</a></li>
+        <li><a asp-action="Users" asp-controller="Admin">Manage Users</a></li>
+        <li><a asp-action="Workplaces" asp-controller="Admin">Manage Workplaces</a></li>
+        <li><a asp-action="Devices" asp-controller="Admin">Manage Devices</a></li>
+        <li><a asp-action="Reservations" asp-controller="Admin">Manage Reservations</a></li>
+        <li class="logout"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+    </ul>
+    <h1 class="table-header">Devices</h1>
+    <div class="popup-form" id="addDeviceForm">
+        <form class="form-container" asp-action="Devices" asp-controller="Admin" method="post">
+            <h2>New Device</h2>
+            <label asp-for="DeviceName">Device Name</label>
+            <input type="text" asp-for="DeviceName" placeholder="Enter device name" />
+            <span class="validation-message" asp-validation-for="DeviceName"></span>
+            <button type="submit" class="confirm-btn">Add</button>
+            <button type="button" class="cancel-btn" onclick="closeForm('addDeviceForm')">Cancel</button>
+        </form>
+    </div>
+    <main>
+        <form asp-action="Devices" asp-controller="Admin" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Device ID</th>
+                        <th>Device Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var device in Model.Devices)
+                    {
+                        <tr>
+                            <td>@device.Id</td>
+                            <td>@device.Name</td>
+                            <td><button class="btn-danger" type="submit" name="roleId" value="@device.Id">Remove</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </main>
+    <button class="open-button" onclick="openForm('addDeviceForm')">Add Device</button>
+</body>
