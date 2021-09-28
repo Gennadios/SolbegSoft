@@ -1,5 +1,6 @@
 ﻿using HotDesk.Data;
 using HotDesk.Models;
+using HotDesk.Models.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,15 +10,15 @@ namespace HotDesk.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HotDeskDbContext _context;
+        private readonly IEmployeeService _employeeService;
 
-        public HomeController(HotDeskDbContext context) => _context = context;
+        public HomeController(IEmployeeService employeeService) => _employeeService = employeeService;
 
         [Authorize(Roles = "employee")]
         public IActionResult Index()
         {
-            string role = User.FindFirst(u => u.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
-            return Content($"Logged in as {role}");
+            var model = _employeeService.GetAvailableWorkplaces();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

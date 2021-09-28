@@ -34,6 +34,7 @@ namespace HotDesk
                 });
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddControllersWithViews();
         }
 

@@ -7,12 +7,5 @@ namespace HotDesk.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public bool? HasDesktop { get; set; }
-
-        [NotMapped]
-        public bool IsReserved
-        {
-            get;
-            set;
-        }
     }
 }

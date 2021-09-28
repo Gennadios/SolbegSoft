@@ -15,6 +15,18 @@
     background-size: 100%;
 }
 
+.admin-page {
+    background-image: url("../img/office-white-2.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.user-page {
+    background-image: url("../img/office-white-3.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
 .login-form {
     display: inline-block;
     border-radius: 12px;
@@ -35,17 +47,6 @@
     display: block;
     color: red;
     font-size: 80%;
-}
-
-.validation-sum {
-    list-style-type: none;
-    color: red;
-}
-
-.main-page {
-    background-image: url("../img/office-white-2.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
 }
 
 .status {
@@ -72,7 +73,7 @@
     text-decoration: none;
 }
 
-.navigation .logout {
+.navigation .anchor-right {
     float: right;
 }
 

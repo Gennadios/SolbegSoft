@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotDesk.Models
 {
@@ -16,5 +17,8 @@ namespace HotDesk.Models
         public virtual User User { get; set; }
 
         public virtual IEnumerable<Device> Devices { get; set; }
+
+        [NotMapped]
+        public bool IsActive { get => DateTime.Now < EndDate; }
     }
 }

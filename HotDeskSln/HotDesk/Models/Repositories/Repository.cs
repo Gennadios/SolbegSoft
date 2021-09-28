@@ -17,7 +17,7 @@ namespace HotDesk.Models.Repositories
 
         public IQueryable<T> GetAll<T>() where T : class
         {
-            return _context.Set<T>();
+            return _context.Set<T>().AsQueryable();
         }
 
         public void Add<T>(T item) where T : class

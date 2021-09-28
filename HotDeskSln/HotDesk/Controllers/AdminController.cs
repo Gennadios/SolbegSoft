@@ -1,11 +1,13 @@
 ﻿using HotDesk.Models;
 using HotDesk.Models.Services;
 using HotDesk.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace HotDesk.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
@@ -33,7 +35,7 @@ namespace HotDesk.Controllers
         [HttpPost]
         public IActionResult Roles(RolesViewModel viewModel, int roleId)
         {
-            if (viewModel.RoleName != null)
+            if (ModelState.IsValid)
                 _adminService.Add(new Role { Name = viewModel.RoleName });
 
             if (roleId != 0)

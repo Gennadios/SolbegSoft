@@ -1,7 +1,28 @@
-﻿@{
+﻿@model IEnumerable<Workplace>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <h2>Login successful!</h2>
-</div>
+<body class="user-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
+        <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Admin">My Reservations</a></li>
+    </ul>
+    <h1 class="table-header">Available Workspaces</h1>
+    @foreach(var workplace in Model)
+    {
+        <div class="workplace-block">
+            <img width="200"/>
+            <div>
+                <p>@workplace.Description</p>
+            </div>
+            <form asp-action="MakeReservation" asp-controller="Home" method="post">
+                <button name="workplaceId" value="@workplace.Id">Book</button>
+            </form>
+        </div>
+    }
+</body>
