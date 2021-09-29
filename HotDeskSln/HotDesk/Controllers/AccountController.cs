@@ -39,7 +39,7 @@ namespace HotDesk.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "Incorrect email or(and) password");
+                ModelState.AddModelError(string.Empty, "Incorrect login or(and) password");
             }
             return View(model);
         }

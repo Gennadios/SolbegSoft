@@ -8,13 +8,13 @@
     <div class="login-form">
         <h2>Login</h2>
         <form asp-action="Login" asp-controller="Account" asp-antiforgery="true">
-            <div class="validation-sum" asp-validation-summary="ModelOnly"></div>
+            <div asp-validation-summary="ModelOnly"></div>
             <input type="text" asp-for="Login" />
             <span class="validation-message" asp-validation-for="Login"></span>
 
             <input type="password" asp-for="Password" />
             <span class="validation-message" asp-validation-for="Password"></span>
-            <button type="submit">Submit</button>
+            <button type="submit">Sign In</button>
         </form>
     </div>
 </body>

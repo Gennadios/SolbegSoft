@@ -1,0 +1,28 @@
+﻿@model Reservation
+@{
+    ViewData["Title"] = "Reservation Confirmation";
+}
+
+<body class="user-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li class="active-tab"><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
+        <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Home">My Reservations</a></li>
+    </ul>
+    <div>
+        <p>Reservation ID: @Model.Id</p>
+        <p>Reservation Date: @Model.Date</p>
+        <p>
+            Reservation Devices:
+            @foreach(var device in Model.Devices)
+            {
+                @device.Name
+            }
+        </p>
+        <p>Workplace ID: @Model.WorkplaceId</p>
+        <p>User ID: @Model.UserId</p>
+    </div>
+</body>

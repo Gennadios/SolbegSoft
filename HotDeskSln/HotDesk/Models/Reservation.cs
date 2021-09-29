@@ -7,8 +7,7 @@ namespace HotDesk.Models
     public class Reservation
     {
         public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime Date { get; set; }
 
         public int WorkplaceId { get; set; }
         public virtual Workplace Workplace { get; set; }
@@ -17,8 +16,5 @@ namespace HotDesk.Models
         public virtual User User { get; set; }
 
         public virtual IEnumerable<Device> Devices { get; set; }
-
-        [NotMapped]
-        public bool IsActive { get => DateTime.Now < EndDate; }
     }
 }

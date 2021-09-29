@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Device>
+@{
+    ViewData["Title"] = "Choose Devices";
+}
+
+<body class="user-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li class="active-tab"><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
+        <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Home">My Reservations</a></li>
+    </ul>
+    <div class="devices-form">
+        <form class="form-container" asp-action="ReservationConfirmation" asp-controller="Home" method="post">
+            <h2>Choose Additional Devices</h2>
+            @foreach(var device in Model)
+            {
+                <label>@device.Name</label>
+                <input type="checkbox" name="deviceIds" value="@device.Id" />
+            }
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+</body>

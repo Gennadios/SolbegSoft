@@ -4,25 +4,53 @@
 }
 
 <body class="user-page">
+    <script type="text/javascript">
+        setMinDateToToday();
+    </script>
+
     <div class="status">
         Logged in as @User.Identity.Name
     </div>
     <ul class="navigation">
-        <li><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
+        <li class="active-tab"><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
         <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
-        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Admin">My Reservations</a></li>
+        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Home">My Reservations</a></li>
     </ul>
     <h1 class="table-header">Available Workspaces</h1>
-    @foreach(var workplace in Model)
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <input type="date" name="preferredDate" id="booking-date" />
+        <button type="submit">Search</button>
+    </form>
+    @if (Model != null)
     {
-        <div class="workplace-block">
-            <img width="200"/>
-            <div>
-                <p>@workplace.Description</p>
+        foreach (var workplace in Model)
+        {
+            <div class="workplace-block">
+                <div class="img-div">
+                    <p>image</p>
+                </div>
+                <div class="desc-div">
+                    @if (workplace.HasDesktop == true)
+                    {
+                        <p>
+                            @workplace.Description<br />
+                            Has a desktop PC.
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @workplace.Id<br />
+                            Doesn't have a desktop PC!
+                        </p>
+                    }
+                </div>
+                <div class="form-div">
+                    <form asp-action="MakeReservation" asp-controller="Home" method="post">
+                        <button name="workplaceId" value="@workplace.Id">Book</button>
+                    </form>
+                </div>
             </div>
-            <form asp-action="MakeReservation" asp-controller="Home" method="post">
-                <button name="workplaceId" value="@workplace.Id">Book</button>
-            </form>
-        </div>
+        }
     }
 </body>
