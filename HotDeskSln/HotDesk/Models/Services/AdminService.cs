@@ -31,5 +31,17 @@ namespace HotDesk.Models.Services
             _repository.Remove(item);
             _repository.SaveChanges();
         }
+
+        public IEnumerable<Device> UpdateDevices(int[] deviceIds)
+        {
+            var output = new List<Device>();
+
+            foreach (var id in deviceIds)
+            {
+                output.Add(_repository.Get<Device>(d => d.Id == id));
+            }
+
+            return output;
+        }
     }
 }

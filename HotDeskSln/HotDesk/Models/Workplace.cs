@@ -6,6 +6,6 @@ namespace HotDesk.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public bool? HasDesktop { get; set; }
+        public bool HasDesktop { get; set; }
     }
 }

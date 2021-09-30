@@ -12,13 +12,18 @@
         <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
         <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Home">My Reservations</a></li>
     </ul>
+    <h1 class="table-header">Confirm Your Reservation</h1>
     <div class="devices-form">
-        <form class="form-container" asp-action="ReservationConfirmation" asp-controller="Home" method="post">
-            <h2>Choose Additional Devices</h2>
-            @foreach(var device in Model)
+        <form asp-action="ReservationConfirmation" asp-controller="Home" method="post">
+            <h4>Workplace ID: @TempData["workplaceId"]</h4>
+            <h4>Date: @Convert.ToDateTime(TempData["date"]).ToShortDateString()</h4>
+            <h3>Choose Additional Devices</h3>
+            @foreach (var device in Model)
             {
-                <label>@device.Name</label>
-                <input type="checkbox" name="deviceIds" value="@device.Id" />
+                <div class="device-form-group">
+                    <label>@device.Name</label>
+                    <input type="checkbox" name="deviceIds" value="@device.Id" />
+                </div>
             }
             <button type="submit">Confirm</button>
         </form>

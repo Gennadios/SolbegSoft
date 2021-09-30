@@ -43,14 +43,14 @@ namespace HotDesk.Models.Services
             _repository.SaveChanges();
         }
 
-        public int GetMyId(string userLogin)
+        public int GetCurrentUserId(string userLogin)
         {
             return _repository.Get<User>(u => u.Login == userLogin).Id;
         }
 
-        //public IEnumerable<Device> ReserveDevices(string[] deviceNames)
-        //{
-
-        //}
+        public IEnumerable<Reservation> GetCurrentUserReservations(string userLogin)
+        {
+            return _repository.GetAll<Reservation>().Where(r => r.User.Login == userLogin);
+        }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotDesk.Migrations
 {
     [DbContext(typeof(HotDeskDbContext))]
-    [Migration("20210927053110_WorkspaceHasDesktopNullable")]
-    partial class WorkspaceHasDesktopNullable
+    [Migration("20210929193609_MakeDeviceNameUnique")]
+    partial class MakeDeviceNameUnique
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,21 @@ namespace HotDesk.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DeviceReservation", b =>
+                {
+                    b.Property<int>("DevicesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DevicesId", "ReservationsId");
+
+                    b.HasIndex("ReservationsId");
+
+                    b.ToTable("DeviceReservation");
+                });
+
             modelBuilder.Entity("HotDesk.Models.Device", b =>
                 {
                     b.Property<int>("Id")
@@ -29,14 +44,13 @@ namespace HotDesk.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReservationId");
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Devices");
                 });
@@ -48,10 +62,7 @@ namespace HotDesk.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -131,7 +142,7 @@ namespace HotDesk.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("HasDesktop")
+                    b.Property<bool>("HasDesktop")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -139,11 +150,19 @@ namespace HotDesk.Migrations
                     b.ToTable("Workplaces");
                 });
 
-            modelBuilder.Entity("HotDesk.Models.Device", b =>
+            modelBuilder.Entity("DeviceReservation", b =>
                 {
+                    b.HasOne("HotDesk.Models.Device", null)
+                        .WithMany()
+                        .HasForeignKey("DevicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HotDesk.Models.Reservation", null)
-                        .WithMany("Devices")
-                        .HasForeignKey("ReservationId");
+                        .WithMany()
+                        .HasForeignKey("ReservationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HotDesk.Models.Reservation", b =>
@@ -174,11 +193,6 @@ namespace HotDesk.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("HotDesk.Models.Reservation", b =>
-                {
-                    b.Navigation("Devices");
                 });
 
             modelBuilder.Entity("HotDesk.Models.Role", b =>

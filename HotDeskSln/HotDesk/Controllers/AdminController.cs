@@ -112,12 +112,12 @@ namespace HotDesk.Controllers
                     HasDesktop = viewModel.HasDesktop
                 };
                 _adminService.Add(newWorkplace);
+            }
 
-                if(workplaceId != 0)
-                {
-                    var workplaceToRemove = _adminService.Get<Workplace>(w => w.Id == workplaceId);
-                    _adminService.Remove(workplaceToRemove);
-                }
+            if (workplaceId != 0)
+            {
+                var workplaceToRemove = _adminService.Get<Workplace>(w => w.Id == workplaceId);
+                _adminService.Remove(workplaceToRemove);
             }
 
             viewModel.Workplaces = _adminService.GetAll<Workplace>();
@@ -150,6 +150,12 @@ namespace HotDesk.Controllers
                 _adminService.Add(newDevice);
             }
 
+            if (deviceId != 0)
+            {
+                var deviceToRemove = _adminService.Get<Device>(d => d.Id == deviceId);
+                _adminService.Remove(deviceToRemove);
+            }   
+
             viewModel.Devices = _adminService.GetAll<Device>();
             return View(viewModel);
         }
@@ -164,10 +170,28 @@ namespace HotDesk.Controllers
         }
 
         [HttpPost]
-        public IActionResult Reservations(int reservationId)
+        public IActionResult Reservations(int reservationId, params int[] deviceIds)
         {
+            if (reservationId != 0)
+            {
+                var reservationToModify = _adminService.Get<Reservation>(r => r.Id == reservationId);
+                reservationToModify.Devices = _adminService.UpdateDevices(deviceIds);
+            }
+
             var model = _adminService.GetAll<Reservation>();
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditReservation(int reservationId)
+        {
+            var viewModel = new ReservationViewModel
+            {
+                Reservation = _adminService.Get<Reservation>(r => r.Id == reservationId),
+                AllDevices = _adminService.GetAll<Device>()
+            };  
+
+            return View(viewModel);
         }
         #endregion
     }

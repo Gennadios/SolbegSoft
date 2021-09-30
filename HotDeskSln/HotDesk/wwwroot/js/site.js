@@ -20,6 +20,6 @@ function setMinDateToToday() {
         mm = '0' + mm
     }
 
-    today = dd + '.' + mm + '.' + yyyy;
+    today = yyyy + '-' + mm + '-' + dd;
     document.getElementById("booking-date").setAttribute("min", today);
 }

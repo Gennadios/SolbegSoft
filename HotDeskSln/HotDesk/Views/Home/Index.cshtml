@@ -1,13 +1,9 @@
-﻿@model IEnumerable<Workplace>
+﻿@model AvailableWorkplacesViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <body class="user-page">
-    <script type="text/javascript">
-        setMinDateToToday();
-    </script>
-
     <div class="status">
         Logged in as @User.Identity.Name
     </div>
@@ -18,39 +14,49 @@
     </ul>
     <h1 class="table-header">Available Workspaces</h1>
     <form asp-controller="Home" asp-action="Index" method="post">
-        <input type="date" name="preferredDate" id="booking-date" />
+        <input type="date" name="preferredDate" id="booking-date" value="@Model?.DateString" />
         <button type="submit">Search</button>
     </form>
+    <script>
+        setMinDateToToday();
+    </script>
     @if (Model != null)
     {
-        foreach (var workplace in Model)
-        {
-            <div class="workplace-block">
-                <div class="img-div">
-                    <p>image</p>
-                </div>
-                <div class="desc-div">
-                    @if (workplace.HasDesktop == true)
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workplace ID</th>
+                        <th>Description</th>
+                        <th>Desktop</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var workplace in Model.Workplaces)
                     {
-                        <p>
-                            @workplace.Description<br />
-                            Has a desktop PC.
-                        </p>
+                        <tr>
+                            <td>@workplace.Id</td>
+                            <td>@workplace.Description</td>
+                            <td>
+                                @if (workplace.HasDesktop)
+                                {
+                                    <span>This workplace has a desktop PC.</span>
+                                }
+                                else
+                                {
+                                    <span>This workplace doesn't have a desktop PC.</span>
+                                }
+                            </td>
+                            <td>
+                                <form asp-action="MakeReservation" asp-controller="Home" method="post">
+                                    <button class="btn-info" type="submit" name="workplaceId" value="@workplace.Id">Book Workplace</button>
+                                </form>
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        <p>
-                            @workplace.Id<br />
-                            Doesn't have a desktop PC!
-                        </p>
-                    }
-                </div>
-                <div class="form-div">
-                    <form asp-action="MakeReservation" asp-controller="Home" method="post">
-                        <button name="workplaceId" value="@workplace.Id">Book</button>
-                    </form>
-                </div>
-            </div>
-        }
+                </tbody>
+            </table>
+        </main>
     }
 </body>

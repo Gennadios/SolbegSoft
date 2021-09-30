@@ -10,6 +10,6 @@ namespace HotDesk.ViewModels
 
         [Required(ErrorMessage = "Description cannot be null")]
         public string Description { get; set; }
-        public bool? HasDesktop { get; set; }
+        public bool HasDesktop { get; set; }
     }
 }

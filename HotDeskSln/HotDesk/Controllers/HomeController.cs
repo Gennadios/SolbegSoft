@@ -4,6 +4,7 @@ using HotDesk.Models.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using HotDesk.ViewModels;
 
 namespace HotDesk.Controllers
 {
@@ -11,6 +12,7 @@ namespace HotDesk.Controllers
     public class HomeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private string CurrentUserLogin { get => User.Identity.Name; }
 
         public HomeController(IEmployeeService employeeService) => _employeeService = employeeService;
 
@@ -24,15 +26,22 @@ namespace HotDesk.Controllers
         public IActionResult Index(DateTime preferredDate)
         {
             TempData["date"] = preferredDate;
-            var model = _employeeService.GetAvailableWorkplaces(preferredDate);
 
-            return View(model);
+            var viewModel = new AvailableWorkplacesViewModel
+            {
+                DateString = preferredDate.ToString("yyyy-MM-dd"),
+                Workplaces = _employeeService.GetAvailableWorkplaces(preferredDate)
+            }; 
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult MakeReservation(int workplaceId)
         {
             TempData["workplaceId"] = workplaceId;
+            TempData.Keep();
+
             var model = _employeeService.GetAllDevices();
 
             return View(model);
@@ -45,12 +54,22 @@ namespace HotDesk.Controllers
             {
                 Date = (DateTime)TempData["date"],
                 WorkplaceId = (int)TempData["workplaceId"],
-                UserId = _employeeService.GetMyId(User.Identity.Name),
+                UserId = _employeeService.GetCurrentUserId(CurrentUserLogin),
                 Devices = _employeeService.BookDevices(deviceIds)
             };
 
             _employeeService.MakeReservation(newReservation);
+            TempData.Clear();
+
             return View(newReservation);
+        }
+
+        [HttpGet]
+        public IActionResult UserReservations()
+        {
+            var model = _employeeService.GetCurrentUserReservations(CurrentUserLogin);
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

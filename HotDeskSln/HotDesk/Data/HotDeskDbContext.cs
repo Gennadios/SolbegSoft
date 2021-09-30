@@ -18,6 +18,7 @@ namespace HotDesk.Data
         {
             builder.Entity<Role>().HasIndex(r => r.Name).IsUnique();
             builder.Entity<User>().HasIndex(u => u.Login).IsUnique();
+            builder.Entity<Device>().HasIndex(d => d.Name).IsUnique();
         }
     }
 }

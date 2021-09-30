@@ -13,7 +13,7 @@
         <li><a asp-action="Workplaces" asp-controller="Admin">Manage Workplaces</a></li>
         <li><a asp-action="Devices" asp-controller="Admin">Manage Devices</a></li>
         <li><a asp-action="Reservations" asp-controller="Admin">Manage Reservations</a></li>
-        <li class="logout"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
     </ul>
     <h1 class="table-header">Workplaces</h1>
     <div class="popup-form" id="addWorkplaceForm">
@@ -25,7 +25,6 @@
 
             <label asp-for="HasDesktop">Does it have a desktop?</label>
             <select asp-for="HasDesktop">
-                <option value="">Choose an option</option>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
             </select>
@@ -54,7 +53,6 @@
                             <td>@workplace.HasDesktop</td>
                             <td>
                                 <button class="btn-danger" type="submit" name="workplaceId" value="@workplace.Id">Remove</button>
-                                <button class="btn-info" type="submit" name="workplaceId" value="@workplace.Id">Modify</button>
                             </td>
                         </tr>
                     }
