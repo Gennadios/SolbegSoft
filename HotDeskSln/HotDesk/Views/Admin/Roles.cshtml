@@ -42,7 +42,12 @@
                         <tr>
                             <td>@role.Id</td>
                             <td>@role.Name</td>
-                            <td><button class="btn-danger" type="submit" name="roleId" value="@role.Id">Remove</button></td>
+                            <td>
+                                @if (role.Id != 1 && role.Id != 2)
+                                {
+                                    <button class="btn-danger" type="submit" name="roleId" value="@role.Id">Remove</button>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -50,4 +55,7 @@
         </form>
     </main>
     <button class="open-button" onclick="openForm('addRoleForm')">Add Role</button>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>

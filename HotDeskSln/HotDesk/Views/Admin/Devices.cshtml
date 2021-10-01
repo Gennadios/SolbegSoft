@@ -42,7 +42,7 @@
                         <tr>
                             <td>@device.Id</td>
                             <td>@device.Name</td>
-                            <td><button class="btn-danger" type="submit" name="roleId" value="@device.Id">Remove</button></td>
+                            <td><button class="btn-danger" type="submit" name="deviceId" value="@device.Id">Remove</button></td>
                         </tr>
                     }
                 </tbody>
@@ -50,4 +50,7 @@
         </form>
     </main>
     <button class="open-button" onclick="openForm('addDeviceForm')">Add Device</button>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>

@@ -128,11 +128,13 @@ th, td {
 
 .popup-form {
     display: none;
-    max-width: 300px;
+    max-width: 30%;
+    max-height: 80%;
+    overflow: scroll;
     position: fixed;
     left: 50%;
     top: 20%;
-    margin-left: -150px;
+    margin-left: -10%;
     background: rgb(51, 51, 51);
     padding: 10px;
     border: 3px solid #f1f1f1;
@@ -146,6 +148,12 @@ th, td {
 
 .popup-form label {
     color: white;
+}
+
+.form-container select {
+    display: block;
+    margin-bottom: 4%;
+    width: 100%;
 }
 
 .form-container .confirm-btn {
@@ -205,24 +213,52 @@ th, td {
     width: 20%;
 }
 
-.devices-form {
+.devices-form-container {
     width: 30%;
     margin: auto;
     background: rgba(51, 51, 51, 0.9);
     padding: 10px;
     border: 3px solid #f1f1f1;
     color: white;
-}
-
-.devices-form h3, h4 {
     text-align: center;
 }
 
-.text-center {
-    margin: 15px 0 5px;
-}
-
-.devices-form .devices-form-group {
+.devices-form .device-form-group {
     display: inline-block;
     margin: 5%;
+}
+
+.devices-form button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.edit-res-container {
+    width: 30%;
+    margin: auto;
+}
+
+.edit-res-form {
+    color: white;
+    padding: 10px;
+    text-align: center;
+    background: rgba(51, 51, 51, 0.9);
+}
+
+.edit-res-form .device-form-group {
+    display: inline-block;
+    margin: 5%;
+}
+
+.edit-res-form button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    width: 100%;
+    margin-bottom: 10px;
 }

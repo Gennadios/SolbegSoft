@@ -17,7 +17,7 @@
     </ul>
     <div>
         <h1>Reservation Details</h1>
-        <div>
+        <div class="edit-res-container">
             <table>
                 <tr>
                     <td>Reservation ID</td>
@@ -37,7 +37,8 @@
                     </td>
                 </tr>
             </table>
-            <form class="form-container" asp-action="Reservations" asp-controller="Admin" method="post">
+            <form class="edit-res-form" asp-action="Reservations" asp-controller="Admin" method="post">
+                <h2>Select New Devices</h2>
                 @foreach (var device in Model.AllDevices)
                 {
                     <div class="device-form-group">
@@ -46,8 +47,11 @@
                     </div>
                 }
                 <input type="text" name="reservationId" value="@Model.Reservation.Id" hidden />
-                <button type="submit">Update devices</button>
+                <button type="submit">Update Devices</button>
             </form>
         </div>
     </div>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>

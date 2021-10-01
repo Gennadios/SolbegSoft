@@ -28,8 +28,20 @@ namespace HotDesk.Models.Services
 
         public void Remove<T>(T item) where T : class
         {
-            _repository.Remove(item);
-            _repository.SaveChanges();
+            if(item is Role)
+                ManageRoleRemoval(item as Role);
+            else
+            {
+                _repository.Remove(item);
+                _repository.SaveChanges();
+            } 
+        }
+
+        // to avoid deleting admin or employee
+        private void ManageRoleRemoval(Role role)
+        {
+            if (role.Id == 1 || role.Id == 2)
+                return;
         }
 
         public IEnumerable<Device> UpdateDevices(int[] deviceIds)

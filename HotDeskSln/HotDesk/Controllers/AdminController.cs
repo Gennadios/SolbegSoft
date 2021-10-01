@@ -1,4 +1,5 @@
-﻿using HotDesk.Models;
+﻿using System.Linq;
+using HotDesk.Models;
 using HotDesk.Models.Services;
 using HotDesk.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -55,6 +56,7 @@ namespace HotDesk.Controllers
         {
             var model = new UsersViewModel()
             {
+                Roles = _adminService.GetAll<Role>(),
                 Users = _adminService.GetAll<User>()
             };
 
@@ -85,6 +87,8 @@ namespace HotDesk.Controllers
             }
 
             viewModel.Users = _adminService.GetAll<User>();
+            viewModel.Roles = _adminService.GetAll<Role>();
+
             return View(viewModel);
         }
         #endregion
@@ -194,5 +198,39 @@ namespace HotDesk.Controllers
             return View(viewModel);
         }
         #endregion
-    }
+
+        #region Validation Actions
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult CheckRoleName([Bind(Prefix = "RoleName")] string roleName)
+        {
+            bool roleExists = _adminService.GetAll<Role>().Any(r => r?.Name.ToUpper() == roleName?.ToUpper());
+
+            if (roleExists)
+                return Json(false);
+            return Json(true);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult CheckDeviceName([Bind(Prefix = "DeviceName")] string deviceName)
+        {
+            bool deviceExists = _adminService.GetAll<Device>().Any(d => d?.Name.ToUpper() == deviceName?.ToUpper());
+
+            if (deviceExists)
+                return Json(false);
+
+            return Json(true);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult CheckUserLogin([Bind(Prefix = "Login")] string userLogin)
+        {
+            bool loginExists = _adminService.GetAll<User>().Any(u => u?.Login.ToUpper() == userLogin?.ToUpper());
+
+            if (loginExists)
+                return Json(false);
+
+            return Json(true);
+        }
+    } 
+    #endregion
 }

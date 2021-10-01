@@ -21,9 +21,11 @@
             <h2>New User</h2>
             <label asp-for="FirstName">First Name</label>
             <input type="text" asp-for="FirstName" placeholder="Enter user first name" />
+            <span class="validation-message" asp-validation-for="FirstName"></span>
 
             <label asp-for="LastName">Last Name</label>
             <input type="text" asp-for="LastName" placeholder="Enter user last name" />
+            <span class="validation-message" asp-validation-for="LastName"></span>
 
             <label asp-for="Login">Login</label>
             <input type="text" asp-for="Login" placeholder="Enter user login" />
@@ -33,8 +35,13 @@
             <input type="text" asp-for="Password" placeholder="Enter user password" />
             <span class="validation-message" asp-validation-for="Password"></span>
 
-            <label asp-for="RoleId">Role ID</label>
-            <input type="text" asp-for="RoleId" placeholder="Enter user's role ID'" />
+            <label asp-for="RoleId">Role</label>
+            <select>
+                @foreach(var role in Model.Roles)
+                {
+                    <option value="@role.Id">@role.Name</option>
+                }
+            </select>
             <span class="validation-message" asp-validation-for="RoleId"></span>
 
             <button type="submit" class="confirm-btn">Add</button>
@@ -73,4 +80,7 @@
         </form>
     </main>
     <button class="open-button" onclick="openForm('addUserForm')">Add User</button>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>

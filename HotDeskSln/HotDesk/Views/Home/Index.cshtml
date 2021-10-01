@@ -14,7 +14,7 @@
     </ul>
     <h1 class="table-header">Available Workspaces</h1>
     <form asp-controller="Home" asp-action="Index" method="post">
-        <input type="date" name="preferredDate" id="booking-date" value="@Model?.DateString" />
+        <input type="date" lang="en-gb" name="preferredDate" id="booking-date" value="@Model?.DateString" />
         <button type="submit">Search</button>
     </form>
     <script>
