@@ -36,7 +36,7 @@
             <span class="validation-message" asp-validation-for="Password"></span>
 
             <label asp-for="RoleId">Role</label>
-            <select>
+            <select asp-for="RoleId">
                 @foreach(var role in Model.Roles)
                 {
                     <option value="@role.Id">@role.Name</option>

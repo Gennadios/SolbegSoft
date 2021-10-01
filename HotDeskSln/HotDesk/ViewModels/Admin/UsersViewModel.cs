@@ -28,7 +28,6 @@ namespace HotDesk.ViewModels
         [StringLength(40, MinimumLength = 8, ErrorMessage = "Password should be between 8 and 40 characters long.")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please, specify role")]
         public int RoleId { get; set; }
     }
 }
