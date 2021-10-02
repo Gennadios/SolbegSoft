@@ -10,6 +10,7 @@ namespace HotDesk.Data
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Workplace> Workplaces { get; set; }
         public DbSet<Device> Devices { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
         public HotDeskDbContext(DbContextOptions<HotDeskDbContext> options) 
             : base(options) { }

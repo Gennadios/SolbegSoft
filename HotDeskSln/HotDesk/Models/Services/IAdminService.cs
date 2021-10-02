@@ -9,6 +9,8 @@ namespace HotDesk.Models.Services
         IEnumerable<T> GetAll<T>() where T : class;
         void Add<T>(T item) where T : class;
         void Remove<T>(T item) where T : class;
-        void UpdateDevices(Reservation reservation, int[] deviceIds);
+        void UpdateDevices(int reservationId, int[] deviceIds);
+        void CancelReservation(int reservationId);
+        void UpdateReservationStatuses();
     }
 }

@@ -10,6 +10,8 @@ namespace HotDesk.Models.Services
         IEnumerable<Device> BookDevices(int[] deviceIds);
         IEnumerable<Reservation> GetCurrentUserReservations(string userLogin);
         void MakeReservation(Reservation reservation);
+        void CancelReservation(int reservationId);
+        void UpdateReservationStatuses();
         int GetCurrentUserId(string userLogin);
     }
 }

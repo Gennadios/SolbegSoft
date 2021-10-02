@@ -31,8 +31,9 @@ namespace HotDesk.Controllers
             {
                 DateString = preferredDate.ToString("yyyy-MM-dd"),
                 Workplaces = _employeeService.GetAvailableWorkplaces(preferredDate)
-            }; 
+            };
 
+            _employeeService.UpdateReservationStatuses();
             return View(viewModel);
         }
 
@@ -55,7 +56,8 @@ namespace HotDesk.Controllers
                 Date = (DateTime)TempData["date"],
                 WorkplaceId = (int)TempData["workplaceId"],
                 UserId = _employeeService.GetCurrentUserId(CurrentUserLogin),
-                Devices = _employeeService.BookDevices(deviceIds)
+                Devices = _employeeService.BookDevices(deviceIds),
+                StatusId = 1
             };
 
             _employeeService.MakeReservation(newReservation);
@@ -68,6 +70,19 @@ namespace HotDesk.Controllers
         public IActionResult UserReservations()
         {
             var model = _employeeService.GetCurrentUserReservations(CurrentUserLogin);
+            _employeeService.UpdateReservationStatuses();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UserReservations(int reservationId)
+        {
+            if (reservationId != 0)
+                _employeeService.CancelReservation(reservationId);
+
+            var model = _employeeService.GetCurrentUserReservations(CurrentUserLogin);
+            _employeeService.UpdateReservationStatuses();
 
             return View(model);
         }

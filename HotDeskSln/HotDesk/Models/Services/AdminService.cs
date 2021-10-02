@@ -35,6 +35,25 @@ namespace HotDesk.Models.Services
             _repository.SaveChanges();
         }
 
+        public void CancelReservation(int reservationId)
+        {
+            var reservationToModify = _repository.Get<Reservation>(r => r.Id == reservationId);
+            reservationToModify.StatusId = 3;
+            _repository.SaveChanges();
+        }
+
+        public void UpdateReservationStatuses()
+        {
+            var allReservations = _repository.GetAll<Reservation>();
+
+            // set reservation status to complete if it wasn't cancelled and the date is expired
+            foreach (var reservation in allReservations)
+            {
+                if (reservation.StatusId == 1 && DateTime.Now.Day > reservation.Date.Day)
+                    reservation.StatusId = 3;
+            }
+        }
+
         // to avoid deleting admin or employee
         private bool CantRemoveRole(Role role)
         {
@@ -43,24 +62,25 @@ namespace HotDesk.Models.Services
 
         // couldn't update Devices navigation property, had to recreate reservation with new devices
         // TODO: optimize Devices update
-        public void UpdateDevices(Reservation reservation, int[] deviceIds)
+        public void UpdateDevices(int reservationId, int[] deviceIds)
         {
             var newDevices = new List<Device>();
-
             foreach (var id in deviceIds)
             {
                 newDevices.Add(_repository.Get<Device>(d => d.Id == id));
             }
 
+            var reservationToUpdate = _repository.Get<Reservation>(r => r.Id == reservationId);
             var newReservation = new Reservation
             {
-                Date = reservation.Date,
-                UserId = reservation.UserId,
-                WorkplaceId = reservation.WorkplaceId,
-                Devices = newDevices
+                Date = reservationToUpdate.Date,
+                UserId = reservationToUpdate.UserId,
+                WorkplaceId = reservationToUpdate.WorkplaceId,
+                Devices = newDevices,
+                StatusId = reservationToUpdate.StatusId
             };
 
-            _repository.Remove(reservation);
+            _repository.Remove(reservationToUpdate);
             _repository.Add(newReservation);
             
             _repository.SaveChanges();

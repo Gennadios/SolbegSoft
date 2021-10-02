@@ -169,19 +169,21 @@ namespace HotDesk.Controllers
         [HttpGet]
         public IActionResult Reservations()
         {
+            _adminService.UpdateReservationStatuses();
             var model = _adminService.GetAll<Reservation>();
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Reservations(int reservationId, params int[] deviceIds)
+        public IActionResult Reservations(int reservationToCancelId, int reservationToEditId, params int[] deviceIds)
         {
-            if (reservationId != 0)
-            {
-                var reservationToModify = _adminService.Get<Reservation>(r => r.Id == reservationId);
-                _adminService.UpdateDevices(reservationToModify, deviceIds);
-            }
+            if (reservationToCancelId != 0)
+                _adminService.CancelReservation(reservationToCancelId);
 
+            if (reservationToEditId != 0)
+                _adminService.UpdateDevices(reservationToEditId, deviceIds);
+
+            _adminService.UpdateReservationStatuses();
             var model = _adminService.GetAll<Reservation>();
             return View(model);
         }
@@ -193,7 +195,7 @@ namespace HotDesk.Controllers
             {
                 Reservation = _adminService.Get<Reservation>(r => r.Id == reservationId),
                 AllDevices = _adminService.GetAll<Device>()
-            };  
+            };
 
             return View(viewModel);
         }

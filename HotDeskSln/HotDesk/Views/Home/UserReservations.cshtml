@@ -21,6 +21,8 @@
                     <th>Date</th>
                     <th>Workplace ID</th>
                     <th>Devices</th>
+                    <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +36,15 @@
                             @foreach (var device in reservation.Devices)
                             {
                                 @device.Name <br />
+                            }
+                        </td>
+                        <td>@reservation.Status.StatusName</td>
+                        <td>
+                            @if (reservation.StatusId == 1)
+                            {
+                                <form asp-action="UserReservations" asp-controller="Home" method="post">
+                                    <button class="btn-danger" type="submit" name="reservationId" value="@reservation.Id">Cancel Reservation</button>
+                                </form>
                             }
                         </td>
                     </tr>

@@ -25,6 +25,7 @@
                     <th>Workplace ID</th>
                     <th>User ID</th>
                     <th>Devices</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -42,10 +43,17 @@
                                 @device.Name <br />
                             }
                         </td>
+                        <td>@reservation.Status.StatusName</td>
                         <td>
-                            <form asp-action="EditReservation" asp-controller="Admin">
-                                <button class="btn-info" type="submit" name="reservationId" value="@reservation.Id">Edit Devices</button>
-                            </form>
+                            @if (reservation.StatusId == 1)
+                            {
+                                <form asp-action="Reservations" asp-controller="Admin">
+                                    <button class="btn-danger" type="submit" name="reservationToCancelId" value="@reservation.Id">Cancel Reservation</button>
+                                </form>
+                                <form asp-action="EditReservation" asp-controller="Admin">
+                                    <button class="btn-info" type="submit" name="reservationId" value="@reservation.Id">Edit Devices</button>
+                                </form>
+                            }
                         </td>
                     </tr>
                 }

@@ -4,14 +4,16 @@ using HotDesk.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotDesk.Migrations
 {
     [DbContext(typeof(HotDeskDbContext))]
-    partial class HotDeskDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211002101739_AddedStatusEntity")]
+    partial class AddedStatusEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
