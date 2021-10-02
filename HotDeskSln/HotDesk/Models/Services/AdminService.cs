@@ -41,16 +41,29 @@ namespace HotDesk.Models.Services
             return role.Id == 1 || role.Id == 2;
         }
 
-        public IEnumerable<Device> UpdateDevices(int[] deviceIds)
+        // couldn't update Devices navigation property, had to recreate reservation with new devices
+        // TODO: optimize Devices update
+        public void UpdateDevices(Reservation reservation, int[] deviceIds)
         {
-            var output = new List<Device>();
+            var newDevices = new List<Device>();
 
             foreach (var id in deviceIds)
             {
-                output.Add(_repository.Get<Device>(d => d.Id == id));
+                newDevices.Add(_repository.Get<Device>(d => d.Id == id));
             }
 
-            return output;
+            var newReservation = new Reservation
+            {
+                Date = reservation.Date,
+                UserId = reservation.UserId,
+                WorkplaceId = reservation.WorkplaceId,
+                Devices = newDevices
+            };
+
+            _repository.Remove(reservation);
+            _repository.Add(newReservation);
+            
+            _repository.SaveChanges();
         }
     }
 }

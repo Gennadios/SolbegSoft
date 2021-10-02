@@ -179,7 +179,7 @@ namespace HotDesk.Controllers
             if (reservationId != 0)
             {
                 var reservationToModify = _adminService.Get<Reservation>(r => r.Id == reservationId);
-                reservationToModify.Devices = _adminService.UpdateDevices(deviceIds);
+                _adminService.UpdateDevices(reservationToModify, deviceIds);
             }
 
             var model = _adminService.GetAll<Reservation>();
