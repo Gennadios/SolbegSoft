@@ -61,8 +61,10 @@ namespace HotDesk.Models.Services
             foreach(var reservation in allReservations)
             {
                 if (reservation.StatusId == 1 && DateTime.Now.Day > reservation.Date.Day)
-                    reservation.StatusId = 3;
+                    reservation.StatusId = 2;
             }
+
+            _repository.SaveChanges();
         }
 
         public int GetCurrentUserId(string userLogin)
