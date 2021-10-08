@@ -1,0 +1,23 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<body class="login-page">
+    <h1 class="logo">HOT DESK</h1>
+    <div class="login-form">
+        <h2>Login</h2>
+        <form asp-action="Login" asp-controller="Account" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="text" asp-for="Login" />
+            <span class="validation-message" asp-validation-for="Login"></span>
+
+            <input type="password" asp-for="Password" />
+            <span class="validation-message" asp-validation-for="Password"></span>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>

@@ -1,0 +1,62 @@
+﻿@model AvailableWorkplacesViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body class="user-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li class="active-tab"><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
+        <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Home">My Reservations</a></li>
+    </ul>
+    <h1 class="table-header">Available Workspaces</h1>
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <input type="date" lang="en-gb" name="preferredDate" id="booking-date" value="@Model?.DateString" />
+        <button type="submit">Search</button>
+    </form>
+    <script>
+        setMinDateToToday();
+    </script>
+    @if (Model != null)
+    {
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workplace ID</th>
+                        <th>Description</th>
+                        <th>Desktop</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var workplace in Model.Workplaces)
+                    {
+                        <tr>
+                            <td>@workplace.Id</td>
+                            <td>@workplace.Description</td>
+                            <td>
+                                @if (workplace.HasDesktop)
+                                {
+                                    <span>This workplace has a desktop PC.</span>
+                                }
+                                else
+                                {
+                                    <span>This workplace doesn't have a desktop PC.</span>
+                                }
+                            </td>
+                            <td>
+                                <form asp-action="MakeReservation" asp-controller="Home" method="post">
+                                    <button class="btn-info" type="submit" name="workplaceId" value="@workplace.Id">Book Workplace</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </main>
+    }
+</body>

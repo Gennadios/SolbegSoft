@@ -1,0 +1,264 @@
+﻿body {
+    padding: 20px;
+}
+
+.logo {
+    text-align: left;
+    margin-left: 3%;
+    font-size: 1000%;
+    font-weight: 700
+}
+
+.login-page {
+    background-image: url("../img/office-white.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.admin-page {
+    background-image: url("../img/office-white-2.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.user-page {
+    background-image: url("../img/office-white-3.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.login-form {
+    display: inline-block;
+    border-radius: 12px;
+    padding: 18px;
+    margin-left: 3%;
+    width: 20%;
+}
+
+.login-form h2 {
+    font-size: 3rem;
+    margin-bottom: 20px
+}
+
+.login-form input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.validation-summary-errors {
+    color: red;
+}
+
+.validation-message {
+    display: block;
+    color: red;
+    font-size: 80%;
+}
+
+.status {
+    float: right;
+}
+
+.navigation {
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    background-color: #333;
+    width: 100%;
+}
+
+.navigation li {
+    float: left;
+}
+
+.navigation li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navigation .anchor-right {
+    float: right;
+}
+
+li a:hover:not(.active-tab) {
+    background-color: #111;
+}
+
+.active-tab {
+    background-color: #333;
+}
+
+h1 {
+    text-align: center;
+}
+
+main {
+    background: rgba(51, 51, 51, 0.9);
+}
+
+table {
+    width: 100%;
+    border-radius: 18px;
+}
+
+table, th, td {
+    border: 2px solid;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 7px;
+    background: rgba(51, 51, 51, 0.9);
+    color: #fff;
+    border-color: rgba(80, 80, 80, 0.75);
+}
+
+.open-button {
+    background-color: royalblue;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    cursor: pointer;
+    opacity: 0.9;
+    width: 200px;
+}
+
+.popup-form {
+    display: none;
+    max-width: 30%;
+    max-height: 80%;
+    overflow: scroll;
+    position: fixed;
+    left: 50%;
+    top: 20%;
+    margin-left: -10%;
+    background: rgb(51, 51, 51);
+    padding: 10px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.popup-form h2 {
+    text-align: center;
+    color: white;
+}
+
+.popup-form label {
+    color: white;
+}
+
+.form-container select {
+    display: block;
+    margin-bottom: 4%;
+    width: 100%;
+}
+
+.form-container .confirm-btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-container .cancel-btn {
+    background-color: red;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-container input[type=text] {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.workplace-block {
+    background: rgba(51, 51, 51, 0.9);
+    color: white;
+    height: 200px;
+    margin: 2% 4%;
+    padding: 1%;
+}
+
+.workplace-block div {
+    vertical-align: top;
+    background: rgba(51, 51, 51, 0.9);
+    display: inline-block;
+    height: 100%;
+}
+
+.workplace-block .img-div {
+    vertical-align: top;
+    width: 20%;
+}
+
+.workplace-block .desc-div {
+    vertical-align: top;
+    width: 58%;
+}
+
+.workplace-block .desc-div p {
+    text-align: center;
+}
+
+.workplace-block .form-div {
+    vertical-align: top;
+    width: 20%;
+}
+
+.devices-form-container {
+    width: 30%;
+    margin: auto;
+    background: rgba(51, 51, 51, 0.9);
+    padding: 10px;
+    border: 3px solid #f1f1f1;
+    color: white;
+    text-align: center;
+}
+
+.devices-form .device-form-group {
+    display: inline-block;
+    margin: 5%;
+}
+
+.devices-form button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.edit-res-container {
+    width: 30%;
+    margin: auto;
+}
+
+.edit-res-form {
+    color: white;
+    padding: 10px;
+    text-align: center;
+    background: rgba(51, 51, 51, 0.9);
+}
+
+.edit-res-form .device-form-group {
+    display: inline-block;
+    margin: 5%;
+}
+
+.edit-res-form button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: 2px solid white;
+    width: 100%;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotDesk", "HotDesk\HotDesk.csproj", "{7CADA689-4011-4BA4-A474-4B0B0C0E9373}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotDesk.Tests", "HotDesk.Tests\HotDesk.Tests.csproj", "{A683A975-DEAD-4CF3-AD02-2CFC8E32A3D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CADA689-4011-4BA4-A474-4B0B0C0E9373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CADA689-4011-4BA4-A474-4B0B0C0E9373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CADA689-4011-4BA4-A474-4B0B0C0E9373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CADA689-4011-4BA4-A474-4B0B0C0E9373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A683A975-DEAD-4CF3-AD02-2CFC8E32A3D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A683A975-DEAD-4CF3-AD02-2CFC8E32A3D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A683A975-DEAD-4CF3-AD02-2CFC8E32A3D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A683A975-DEAD-4CF3-AD02-2CFC8E32A3D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F751EA93-B8CE-490F-ACC7-6B5FD8836C25}
+	EndGlobalSection
+EndGlobal

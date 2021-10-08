@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Reservation>
+@{
+    ViewData["Title"] = "My Reservations";
+}
+
+<body class="user-page">
+    <div class="status">
+        Logged in as @User.Identity.Name
+    </div>
+    <ul class="navigation">
+        <li class="active-tab"><a asp-action="Index" asp-controller="Home">Available Workspaces</a></li>
+        <li class="anchor-right"><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        <li class="anchor-right"><a asp-action="UserReservations" asp-controller="Home">My Reservations</a></li>
+    </ul>
+    <h1 class="table-header">My Reservations</h1>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Date</th>
+                    <th>Workplace ID</th>
+                    <th>Devices</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Model)
+                {
+                    <tr>
+                        <td>@reservation.Id</td>
+                        <td>@reservation.Date.ToShortDateString()</td>
+                        <td>@reservation.WorkplaceId</td>
+                        <td>
+                            @foreach (var device in reservation.Devices)
+                            {
+                                @device.Name <br />
+                            }
+                        </td>
+                        <td>@reservation.Status.StatusName</td>
+                        <td>
+                            @if (reservation.StatusId == 1)
+                            {
+                                <form asp-action="UserReservations" asp-controller="Home" method="post">
+                                    <button class="btn-danger" type="submit" name="reservationId" value="@reservation.Id">Cancel Reservation</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</body>
